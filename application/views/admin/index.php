@@ -1,6 +1,15 @@
 <div class="row">
   <div class="flash-data-error" data-flashdata="<?php echo $this->session->flashdata('error'); ?>"></div>
-  <div class="col-lg-6 col-md-6 col-sm-12">
+  <div class="col-lg-3 col-md-6 col-sm-12">
+    <div class="top-widget">
+      <i class="fa fa-dollar"></i>
+      <div class="informative">
+        <span><?php echo number_format($profit, 0, ',', '.'); ?></span>
+        <em>Total Pendapatan</em>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-12">
     <div class="top-widget">
       <i class="fa fa-tasks"></i>
       <div class="informative">
@@ -9,12 +18,12 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-6 col-md-6 col-sm-12">
+  <div class="col-lg-3 col-md-6 col-sm-12">
     <div class="top-widget">
       <i class="fa fa-users"></i>
       <div class="informative">
         <span><?php echo $totaluser; ?></span>
-        <em>Total Pelanggan</em>
+        <em>Total User</em>
       </div>
     </div>
   </div>

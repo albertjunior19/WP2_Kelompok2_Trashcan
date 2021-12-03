@@ -36,37 +36,8 @@
               </select>
             </div>
             <div class="col-md-6">
-              <label>Bentuk</label><br>
-              <select name="bentuk" class="form-control" required>
-                <option value="">Pilih Bentuk</option>
-                <option value="Cair">Cair</option>
-                <option value="Padat">Padat</option>
-              </select>
-            </div>
-            <div class="col-md-12">
-              <label>Kadaluarsa Produk</label>
-              <input type="date" class="form-control" name="kadaluarsa" value="<?php echo set_value('kadaluarsa'); ?>">
-              <small class="text-danger"><?php echo form_error('kadaluarsa'); ?></small>
-            </div>
-            <div class="col-md-6">
-              <label>Indikasi</label>
-              <textarea cols="30" name="indikasi" rows="5" placeholder=""><?php echo set_value('indikasi'); ?></textarea>
-              <small class="text-danger"><?php echo form_error('indikasi'); ?></small>
-            </div>
-            <div class="col-md-6">
-              <label>Dosis</label>
-              <textarea cols="30" name="dosis" rows="5" placeholder=""><?php echo set_value('dosis'); ?></textarea>
-              <small class="text-danger"><?php echo form_error('dosis'); ?></small>
-            </div>
-            <div class="col-md-6">
-              <label>Komposisi</label>
-              <textarea cols="30" name="komposisi" rows="5" placeholder=""><?php echo set_value('komposisi'); ?></textarea>
-              <small class="text-danger"><?php echo form_error('komposisi'); ?></small>
-            </div>
-            <div class="col-md-6">
-              <label>Cara Pakai</label>
-              <textarea cols="30" name="carapakai" rows="5" placeholder=""><?php echo set_value('carapakai'); ?></textarea>
-              <small class="text-danger"><?php echo form_error('carapakai'); ?></small>
+              <label>Nama Mitra</label><br>
+              <input type="text" name="namamitra" value="<?php echo set_value('namamitra'); ?>" placeholder="">
             </div>
             <div class="col-md-12"> <span class="upload-image">Upload gambar</span>
               <label class="fileContainer"> <span>upload</span>
