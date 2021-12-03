@@ -48,16 +48,17 @@
                                             </li>
                                             <li class="menu-item-has-children"> <a title=""><i class="fa fa-laptop"></i><span>Produk</span></a>
                                                 <ul class="mega">
-                                                    <li><a href="<?php echo base_url(); ?>admin/produksampah">Produk</a></li>
-                                                    <li><a href="<?php echo base_url(); ?>admin/kategoriproduk">Kategori</a></li>
+                                                    <li><a href="<?php echo base_url(); ?>admin/produk">Produk</a></li>
+                                                    <li><a href="<?php echo base_url(); ?>admin/kategori">Kategori</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="<?php echo base_url(); ?>admin/pembelian"><i class="fa fa-shopping-cart"></i><span>Transaksi</span></a>
+                                            <li><a href="<?php echo base_url(); ?>admin/transaksi"><i class="fa fa-shopping-cart"></i><span>Transaksi</span></a>
                                             </li>
                                             <li class="nav-item dropdown <?php echo $this->uri->segment(2) == 'subsoal' ?  'active' : '' ?>">
                                             </li>
                                             <li><a href="<?php echo base_url(); ?>admin/member"><i class="fa fa-users"></i><span>Pelanggan</span></a>
-                                            <!-- <li><a href="<?php echo base_url(); ?>admin/pesan"><i class="fa fa-users"></i><span>Pesan</span></a> -->
+                                            <li><a href="<?php echo base_url(); ?>admin/admin"><i class="fa fa-users"></i><span>Admin</span></a>
+                                            <li><a href="<?php echo base_url(); ?>admin/artikel"><i class="fa fa-newspaper-o"></i><span>Trashblog</span></a>
                                         </ul>
                                     </nav>
                                 </div>
@@ -109,7 +110,6 @@
                                                 <ul class="drop-meta">
                                                     <li> <a href="<?php echo base_url(); ?>admin/edit_profil"><i class="fa fa-eyedropper"></i>Edit Profile</a> </li>
                                                     <li> <a href="<?php echo base_url(); ?>admin/edit_sandi"><i class="fa fa-lock"></i>Ganti Password</a> </li>
-                                                    <li> <a href="<?php echo base_url(); ?>laporan/transaksi"><i class="fa fa-align-right"></i>Laporan Transaksi</a> </li>
                                                 </ul>
                                                 <span class="drop-bottom"><a href="<?php echo base_url(); ?>auth/logout"><i class="fa fa-sign-out"></i>Keluar</a></span>
                                             </div>
@@ -199,7 +199,7 @@
                                     <div class="sub-bar">
                                         <div class="sub-title">
                                             <h4><?php echo $title; ?>:</h4>
-<br>
+                                            <br>
                                         </div>
                                         <ul class="bread-crumb">
                                             <li><a href="<?php echo base_url(); ?>admin" title="">Home</a></li>

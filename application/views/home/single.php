@@ -43,48 +43,9 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="pd_text">
-								<h3>Bentuk :</h3>
+								<h3>Nama Mitra :</h3>
 								<br>
-								<p><?php echo $detail['bentuk']; ?></p>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="pd_text">
-								<h3>Komposisi :</h3>
-								<br>
-								<p><?php echo $detail['komposisi']; ?></p>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="pd_text">
-								<h3>Cara Pakai :</h3>
-								<br>
-								<p><?php echo $detail['carapakai']; ?></p>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="pd_text">
-								<h3>Dosis :</h3>
-								<br>
-								<p><?php echo $detail['dosis']; ?></p>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="pd_text">
-								<h3>Indikasi :</h3>
-								<br>
-								<p><?php echo $detail['indikasi']; ?></p>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="pd_text">
-								<h3>Kadaluarsa :</h3>
-								<br>
-								<p><?php echo $detail['kadaluarsa']; ?></p>
+								<p><?php echo $detail['namamitra']; ?></p>
 							</div>
 						</div>
 					</div>
