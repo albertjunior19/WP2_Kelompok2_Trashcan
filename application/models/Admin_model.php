@@ -77,12 +77,7 @@ class Admin_model extends CI_Model
 					'produk_status'				=>	$status,
 					'harga'				=>	$harga,
 					'id_kategori'				=>	$this->input->post('kategori'),
-					'kadaluarsa'				=>	$this->input->post('kadaluarsa'),
-					'bentuk'		=>	$this->input->post('bentuk'),
-					'indikasi'		=>	$this->input->post('indikasi'),
-					'dosis'		=>	$this->input->post('dosis'),
-					'komposisi'		=>	$this->input->post('komposisi'),
-					'carapakai'		=>	$this->input->post('carapakai'),
+					'namamitra'		=>	$this->input->post('namamitra'),
 					'gambar'				=>	$gambar['file_name']
 				);
 			}
@@ -106,7 +101,6 @@ class Admin_model extends CI_Model
 		$stokterjual = $this->db->get()->row_array();
 		$stok = $this->input->post('stok-produk') + $stokterjual['jumlah'];
 		$berat = $this->input->post('berat-produk');
-		$kadaluarsa = $this->input->post('kadaluarsa');
 		$status = $this->input->post('status-produk');
 		$harga = $this->input->post('harga-produk');
 		$deskripsi = $this->input->post('deskripsi-produk');
@@ -132,16 +126,10 @@ class Admin_model extends CI_Model
 					'nama_produk'				=>	$judul,
 					'stok'				=>	$stok,
 					'produk_weight'				=>	$berat,
-					'kadaluarsa'					=>	$kadaluarsa,
 					'produk_status'				=>	$status,
 					'harga'				=>	$harga,
 					'id_kategori'				=>	$this->input->post('kategori'),
-					'kadaluarsa'				=>	$this->input->post('kadaluarsa'),
-					'bentuk'		=>	$this->input->post('bentuk'),
-					'indikasi'		=>	$this->input->post('indikasi'),
-					'dosis'		=>	$this->input->post('dosis'),
-					'komposisi'		=>	$this->input->post('komposisi'),
-					'carapakai'		=>	$this->input->post('carapakai'),
+					'namamitra'		=>	$this->input->post('namamitra'),
 					'gambar'				=>	$gambar['file_name']
 				);
 			}
@@ -153,12 +141,7 @@ class Admin_model extends CI_Model
 				'produk_status'				=>	$status,
 				'harga'				=>	$harga,
 				'id_kategori'				=>	$this->input->post('kategori'),
-				'kadaluarsa'				=>	$this->input->post('kadaluarsa'),
-				'bentuk'		=>	$this->input->post('bentuk'),
-				'indikasi'		=>	$this->input->post('indikasi'),
-				'dosis'		=>	$this->input->post('dosis'),
-				'komposisi'		=>	$this->input->post('komposisi'),
-				'carapakai'		=>	$this->input->post('carapakai'),
+				'namamitra'		=>	$this->input->post('namamitra'),
 				'gambar'				=>	$this->input->post('gambar_old')
 			);
 		}
@@ -348,4 +331,107 @@ class Admin_model extends CI_Model
 	{
 		return $this->db->get_where('admin', ['admin_id' => $this->session->userdata('adminid')])->row_array();
 	}
+
+	public function data_artikel() {
+		$this->db->order_by('blog_tgl', 'DESC');
+		return $this->db->get('tb_blog')->result_array();
+	}
+
+	public function simpan_artikel() {
+		$id = rand();
+	    $judul = ucwords($this->input->post('judul'));
+	    $url = url_title(strtolower($judul), 'dash', TRUE).'-'.time().'.html';
+	    $tgl = date('Y-m-d H:i:s');
+	    $isi = $this->input->post('isi');
+	
+	    // get foto
+	    $config['upload_path'] = './assets_home/img/blog/';
+	    $config['allowed_types'] = 'jpg|png|jpeg|gif';
+	    $config['encrypt_name'] = TRUE;
+	
+	    $this->upload->initialize($config);
+	    if (!empty($_FILES['gambar']['name'])) {
+	        if ( $this->upload->do_upload('gambar') ) {
+	            $gambar = $this->upload->data();
+	            $config['image_library'] = 'gd2';
+	            $config['source_image'] = './assets_home/img/blog/'.$gambar['file_name'];
+	            $config['width']= 800;
+	            $config['height']= 500;
+	            $config['new_image'] = './assets_home/img/blog/'.$gambar['file_name'];
+	            $this->load->library('image_lib', $config);
+	            $this->image_lib->resize();
+	                
+	            $data = array(
+	                    'blog_id'					=>	$id,
+	                    'blog_url'					=>	$url,
+	                    'blog_judul'				=>	$judul,
+	                    'blog_tgl'					=>	$tgl,
+	                    'blog_isi'					=>	$isi,
+						'blog_gambar'				=>	$gambar['file_name']
+	                );
+	           }
+	    }else {
+	    	$this->session->set_flashdata('error', 'Anda belum memilih gambar');
+			redirect('admin/add_post');
+	    }
+	
+		$this->db->insert('tb_blog', $data);
+	}
+	
+	public function ubah_artikel() {
+		$id = $this->input->post('id');
+	    $judul = ucwords($this->input->post('judul'));
+		$url = url_title(strtolower($judul), 'dash', TRUE).'-'.time().'.html';
+	    $tgl = date('Y-m-d H:i:s');
+	    $isi = $this->input->post('isi');
+
+	    $config['upload_path'] = './assets_home/img/blog/';
+	    $config['allowed_types'] = 'jpg|png|jpeg|gif';
+	    $config['encrypt_name'] = TRUE;
+	
+	    $this->upload->initialize($config);
+	    if (!empty($_FILES['gambar']['name'])) {
+	        if ( $this->upload->do_upload('gambar') ) {
+	            $gambar = $this->upload->data();
+	            $config['image_library'] = 'gd2';
+	            $config['source_image'] = './assets_home/img/blog/'.$gambar['file_name'];
+	            $config['width']= 800;
+	            $config['height']= 500;
+	            $config['new_image'] = './assets_home/img/blog/'.$gambar['file_name'];
+	            $this->load->library('image_lib', $config);
+	            $this->image_lib->resize();
+	                
+	            $data = array(
+	                    'blog_id'					=>	$id,
+	                    'blog_url'					=>	$url,
+	                    'blog_judul'				=>	$judul,
+	                    'blog_tgl'					=>	$tgl,
+	                    'blog_isi'					=>	$isi,
+						'blog_gambar'				=>	$gambar['file_name']
+	                );
+	           }
+	    }else {
+	    	$data = array(
+                'blog_id'					=>	$id,
+                'blog_url'					=>	$url,
+                'blog_judul'				=>	$judul,
+                'blog_tgl'					=>	$tgl,
+                'blog_isi'					=>	$isi,
+				'blog_gambar'				=>	$this->input->post('gambar_old')
+	        );
+	    }
+	
+		$this->db->where('blog_id', $this->input->post('id'));
+		$this->db->update('tb_blog', $data);
+	}
+
+	public function artikelbyid($id) {
+		return $this->db->get_where('tb_blog', ['blog_id' => $id])->row_array();
+	}
+
+	public function del_artikel($id) {
+		$this->db->where('blog_id', $id);
+		$this->db->delete('tb_blog');
+	}
+
 }

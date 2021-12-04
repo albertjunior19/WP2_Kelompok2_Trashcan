@@ -57,6 +57,26 @@ class Home_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 
+	public function cari_artikel($s) {
+		$this->db->like('blog_judul', $s);
+		$this->db->or_like('blog_isi', $s);
+		return $this->db->get('tb_blog')->result_array();
+	}
+
+	public function detail_artikel($url) {
+		return $this->db->get_where('tb_blog', ['blog_url' => $url])->row_array();
+	}
+
+	public function data_artikel_for_home() {
+		$this->db->order_by('blog_tgl', 'DESC');
+		$this->db->limit(3);
+		return $this->db->get('tb_blog')->result_array();
+	}
+
+	public function data_artikel() {
+		$this->db->order_by('blog_tgl', 'DESC');
+		return $this->db->get('tb_blog')->result_array();
+	}
 
 	public function all_kategori()
 	{

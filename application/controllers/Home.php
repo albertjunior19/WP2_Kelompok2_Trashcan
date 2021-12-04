@@ -21,7 +21,8 @@ class Home extends CI_Controller
 		$data['keranjang'] = $this->cart->contents();
 		$data['kategori'] = $this->Home_model->all_kategori();
 		$this->load->view('tema/home/header', $data);
-		$this->load->view('tema/home/hero', $data);
+		$this->load->view('tema/home/hero');
+		$this->load->view('home/index');
 		$this->load->view('tema/home/profil');
 		$this->load->view('tema/home/footer');
 	}
@@ -61,6 +62,37 @@ class Home extends CI_Controller
 		$this->load->view('tema/home/footer');
 	}
 
+	public function all_artikel() {
+		$data['title'] = 'Blog';
+		$data['kategori'] = $this->Home_model->all_kategori();
+		$data['artikel'] = $this->Home_model->data_artikel();
+		$data['keranjang'] = $this->cart->contents();
+		$this->load->view('tema/home/header', $data);
+		$this->load->view('home/blog', $data);
+		$this->load->view('tema/home/footer');
+	}
+
+	public function single_blog($url) {
+		$data['title'] = 'Detail Artikel';
+		$data['kategori'] = $this->Home_model->all_kategori();
+		$data['keranjang'] = $this->cart->contents();
+		$data['detailblog'] = $this->Home_model->detail_artikel($url);
+		$this->load->view('tema/home/header_detail_blog', $data);
+		$this->load->view('home/single_blog', $data);
+		$this->load->view('tema/home/footer');
+	}
+
+	public function cari_s() {
+		$data['title'] = 'Hasil Pencarian';
+		$s = $this->input->post('s');
+		$data['s'] = $this->input->post('s');
+		$data['kategori'] = $this->Home_model->all_kategori();
+		$data['keranjang'] = $this->cart->contents();
+		$data['artikel'] = $this->Home_model->cari_artikel($s);
+		$this->load->view('tema/home/header', $data);
+		$this->load->view('home/results_blog', $data);
+		$this->load->view('tema/home/footer');
+	}
 
 	public function kontak_kami()
 	{
@@ -99,18 +131,6 @@ class Home extends CI_Controller
 		$data['produk'] = $this->Home_model->cari_produk($key);
 		$this->load->view('tema/home/header', $data);
 		$this->load->view('home/results', $data);
-		$this->load->view('tema/home/footer');
-	}
-
-	public function cari_s()
-	{
-		$data['title'] = 'Hasil Pencarian';
-		$s = $this->input->post('s');
-		$data['s'] = $this->input->post('s');
-		$data['kategori'] = $this->Home_model->all_kategori();
-		$data['keranjang'] = $this->cart->contents();
-		$this->load->view('tema/home/header', $data);
-		$this->load->view('home/results_blog', $data);
 		$this->load->view('tema/home/footer');
 	}
 

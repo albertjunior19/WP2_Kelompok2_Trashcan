@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2021 at 03:14 AM
+-- Generation Time: Dec 01, 2021 at 05:00 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.4.16
 
@@ -57,6 +57,13 @@ CREATE TABLE `customer` (
   `telepon` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`user_id`, `nama_lengkap`, `email`, `password`, `user_created`, `telepon`) VALUES
+(1, 'Taufik Hidayat', 'taufik@gmail.com', '$2y$10$jqquXQWf3SAS0WBhbzkYneSiIJ7pCKang2A8ODTLCr2r8jdWmjTh6', '2021-12-01 03:38:20', '081381044430');
+
 -- --------------------------------------------------------
 
 --
@@ -75,6 +82,28 @@ CREATE TABLE `kategori` (
 
 INSERT INTO `kategori` (`id_kategori`, `kategori`, `url`) VALUES
 (1, 'Botol', 'botol');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_blog`
+--
+
+CREATE TABLE `tb_blog` (
+  `blog_id` int(11) NOT NULL,
+  `blog_judul` varchar(90) NOT NULL,
+  `blog_url` text NOT NULL,
+  `blog_tgl` datetime NOT NULL,
+  `blog_isi` text NOT NULL,
+  `blog_gambar` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_blog`
+--
+
+INSERT INTO `tb_blog` (`blog_id`, `blog_judul`, `blog_url`, `blog_tgl`, `blog_isi`, `blog_gambar`) VALUES
+(0, 'Tesss Xdxd Jiah', 'tesss-xdxd-jiah-1638330921.html', '2021-12-01 10:55:21', 'hahahahi haha', 'fe83aad9b5c482e648f8245af40ab007.jpg');
 
 -- --------------------------------------------------------
 
@@ -184,6 +213,12 @@ ALTER TABLE `kategori`
   ADD PRIMARY KEY (`id_kategori`);
 
 --
+-- Indexes for table `tb_blog`
+--
+ALTER TABLE `tb_blog`
+  ADD PRIMARY KEY (`blog_id`);
+
+--
 -- Indexes for table `tb_notifikasi`
 --
 ALTER TABLE `tb_notifikasi`
@@ -215,13 +250,19 @@ ALTER TABLE `tb_transaksi`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
   MODIFY `id_kategori` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `tb_blog`
+--
+ALTER TABLE `tb_blog`
+  MODIFY `blog_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=973549015;
 
 --
 -- AUTO_INCREMENT for table `tb_notifikasi`

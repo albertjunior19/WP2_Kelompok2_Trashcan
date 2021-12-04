@@ -22,3 +22,5 @@ $route['token'] = 'home/token';
 $route['send'] = 'home/send';
 $route['method'] = 'home/met';
 $route['change'] = 'home/ganti';
+$route['blog'] = 'home/all_artikel';
+$route['artikel/(:any)'] = 'home/single_blog/$1';
