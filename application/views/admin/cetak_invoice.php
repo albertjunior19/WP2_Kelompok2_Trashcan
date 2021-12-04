@@ -46,7 +46,7 @@
       <td style="border-color: white;"><img src="<?= base_url('assets_home/logo.png') ?>" width="50" height="90"></td>
       <td style="border-color: white;">
         <font size="6"><B>Trashcan</B></font><br>
-        <font size="2">Alamat : Jalan Jendral Soedirman No. 01, Kenteng, Ponjong, Gunungkidul<br>Kode Pos 55892<br>Email : Kenteng02@gmail.com</font><br>
+        <font size="2">Alamat : Jalan Karet Pasar Baru Barat II No.22 RT 06 RW 06 Kelurahan Karet Tengsin, Kecamatan Tanah Abang, Jakarta Pusat <br>Kode Pos 10220<br>Email : trashcan_jkt@gmail.com</font><br>
         </center>
       </td>
     </tr>
