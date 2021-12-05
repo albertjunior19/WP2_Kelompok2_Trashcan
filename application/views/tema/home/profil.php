@@ -14,7 +14,7 @@
 				<h3>ALAMAT</h3>
 				<br>
 				<hr><br>
-				<p>Jalan Margahayu Raya blok C No. 85 RT.04/015 Kelurahan Margahayu Kecamatan Bekasi Timur</p>
+				<p>Jalan Karet Pasar Baru Barat II No 22 RT 06 RW 05 Karet Tengsin, Tanah Abang, Jakarta Pusat</p>
 			</div>
 
 		</div>
