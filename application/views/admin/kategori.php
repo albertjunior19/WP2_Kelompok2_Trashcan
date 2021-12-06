@@ -9,6 +9,7 @@
             <tr>
               <th><em>No</em></th>
               <th><em>Nama Kategori</em></th>
+              <th><em>Url Kategori</em></th>
               <th><em>Opsi</em></th>
             </tr>
           </thead>
@@ -18,6 +19,7 @@
               <tr>
                 <td><?php echo $i . '.'; ?></td>
                 <td><span><?php echo $pro['kategori']; ?></span></td>
+                <td><i><?php echo $pro['url']; ?></i></td>
                 <td>
                 <a href="<?php echo base_url(); ?>admin/edit_kategori/<?php echo $pro['id_kategori']; ?>" class="btn-st drk-blu-clr"><i class="fa fa-edit"></i></a>
                   <a href="<?php echo base_url(); ?>admin/hapus_kategori/<?php echo $pro['id_kategori']; ?>" class="btn-st rd-clr bdel"><i class="fa fa-trash"></i></a>
