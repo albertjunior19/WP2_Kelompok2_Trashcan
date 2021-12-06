@@ -12,6 +12,11 @@
                             <input type="text" name="kategori" value="<?php echo $kategori['kategori']; ?>" placeholder="">
                             <small class="text-danger"><?php echo form_error('kategori'); ?></small>
                         </div>
+                        <div class="col-md-6">
+                            <label>Url Kategori</label>
+                            <input type="text" name="url" value="<?php echo $kategori['url']; ?>" placeholder="">
+                            <small class="text-danger"><?php echo form_error('url'); ?></small>
+                        </div>
                         <div class="col-md-12">
                             <div class="buttonz">
                                 <button type="submit">Simpan</button>
