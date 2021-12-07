@@ -104,7 +104,7 @@
 						<label for="nama">Ongkir : </label>
 						<input type="text" class="form-control" name="ongkir" id="ongkir" readonly="" value="10000">
 						<br>
-						<small class="text-danger">Ongkir Rp. 10.000 Se Kota Jakarta Pusat</small>
+						<small class="text-danger">Ongkir Menggunakan jasa kirim J&T Rp. 9.000 Se Kota Jakarta Pusat</small>
 					</div>
 					<div class="form-group">
 						<label for="nama">Yang harus dibayar:</label>
