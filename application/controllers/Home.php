@@ -27,10 +27,73 @@ class Home extends CI_Controller
 		$this->load->view('tema/home/footer');
 	}
 
+	public function trashpicktambah()
+	{
+		if ($this->session->userdata('userid') == '') {
+			$this->session->set_flashdata('flash', 'Silahkan login dahulu');
+			redirect('account');
+		}
+		$data['title'] = 'Trashpick';
+
+		$data['kategori'] = $this->Home_model->all_kategori();
+		$data['keranjang'] = $this->cart->contents();
+
+		$this->form_validation->set_rules('nama', 'nama', 'required', [
+			'required'	=>	'Kolom ini tidak boleh kosong'
+		]);
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('tema/home/header', $data);
+			$this->load->view('home/trashpicktambah', $data);
+			$this->load->view('tema/home/footer');
+		} else {
+			$simpan = array(
+				'iduser' => $this->session->userdata('userid'),
+				'nama'		=>	$this->input->post('nama'),
+				'notelp'		=>	$this->input->post('notelp'),
+				'alamat'		=>	$this->input->post('alamat'),
+				'jenisbarang'		=>	$this->input->post('jenisbarang'),
+				'berat'		=>	$this->input->post('berat'),
+				'tanggalpickup'		=>	$this->input->post('tanggalpickup'),
+				'waktupickup'		=>	$this->input->post('waktupickup'),
+				'biayapickup'		=>	'6000',
+				'uploadbukti'		=>	$this->input->post('uploadbukti'),
+			);
+			if (!empty($_FILES)) {
+				$config['upload_path']          = getcwd() . '/assets/upload/';
+				$config['allowed_types']        = '*';
+				$this->upload->initialize($config);
+				$this->load->library('upload', $config);
+				if (!$this->upload->do_upload('gambar')) {
+					$simpan['uploadbukti'] =  $this->upload->display_errors();
+					// var_dump($simpan['uploadbukti']);
+					// die();
+				} else {
+					$dataupload = array('upload_data' => $this->upload->data());
+					$simpan['uploadbukti'] = $dataupload['upload_data']['file_name'];
+				}
+			}
+			$this->db->insert('trashpick', $simpan);
+			$this->session->set_flashdata('flash', 'Trashpick Berhasil Di Simpan');
+			redirect('home/trashpickriwayat');
+		}
+	}
+
+	public function trashpickriwayat()
+	{
+		$data['title'] = 'Riwayat Trashpick Anda';
+
+		$data['keranjang'] = $this->cart->contents();
+		$data['kategori'] = $this->Home_model->all_kategori();
+		$data['trashpick'] = $this->Home_model->trashpick();
+		$this->load->view('tema/home/header', $data);
+		$this->load->view('home/trashpickriwayat', $data);
+		$this->load->view('tema/home/footer');
+	}
+
 	public function single($id, $tag, $url)
 	{
 		$data['title'] = 'Detail Produk';
-		
+
 		$data['kategori'] = $this->Home_model->all_kategori();
 		$data['keranjang'] = $this->cart->contents();
 		$data['detail'] = $this->Home_model->detail_produk($id, $tag, $url);
@@ -57,12 +120,19 @@ class Home extends CI_Controller
 		$data['kategori'] = $this->Home_model->all_kategori();
 		$data['produk'] = $this->Home_model->all_produk();
 		$data['keranjang'] = $this->cart->contents();
+		if ($this->input->post('kategoricari') != "") {
+			$kategoricari = $this->input->post('kategoricari');
+		} else {
+			$kategoricari = 0;
+		}
+		$data['kategoricari'] = $kategoricari;
 		$this->load->view('tema/home/header', $data);
 		$this->load->view('home/shops', $data);
 		$this->load->view('tema/home/footer');
 	}
 
-	public function all_artikel() {
+	public function all_artikel()
+	{
 		$data['title'] = 'Blog';
 		$data['kategori'] = $this->Home_model->all_kategori();
 		$data['artikel'] = $this->Home_model->data_artikel();
@@ -72,7 +142,12 @@ class Home extends CI_Controller
 		$this->load->view('tema/home/footer');
 	}
 
-	public function single_blog($url) {
+	public function single_blog($url)
+	{
+		if ($this->session->userdata('userid') == '') {
+			$this->session->set_flashdata('flash', 'Silahkan login dahulu');
+			redirect('account');
+		}
 		$data['title'] = 'Detail Artikel';
 		$data['kategori'] = $this->Home_model->all_kategori();
 		$data['keranjang'] = $this->cart->contents();
@@ -82,7 +157,8 @@ class Home extends CI_Controller
 		$this->load->view('tema/home/footer');
 	}
 
-	public function cari_s() {
+	public function cari_s()
+	{
 		$data['title'] = 'Hasil Pencarian';
 		$s = $this->input->post('s');
 		$data['s'] = $this->input->post('s');
@@ -126,9 +202,15 @@ class Home extends CI_Controller
 		$data['title'] = 'Hasil Pencarian';
 		$key = $this->input->post('key');
 		$data['key'] = $this->input->post('key');
+		if ($this->input->post('kategoricari') != "") {
+			$kategoricari = $this->input->post('kategoricari');
+		} else {
+			$kategoricari = 0;
+		}
+		$data['kategoricari'] = $kategoricari;
 		$data['keranjang'] = $this->cart->contents();
 		$data['kategori'] = $this->Home_model->all_kategori();
-		$data['produk'] = $this->Home_model->cari_produk($key);
+		$data['produk'] = $this->Home_model->cari_produk($key, $kategoricari);
 		$this->load->view('tema/home/header', $data);
 		$this->load->view('home/results', $data);
 		$this->load->view('tema/home/footer');
@@ -137,7 +219,7 @@ class Home extends CI_Controller
 	public function akun()
 	{
 		$data['title'] = 'Masuk atau Daftar';
-		
+
 		$data['kategori'] = $this->Home_model->all_kategori();
 		$data['keranjang'] = $this->cart->contents();
 		$this->load->view('tema/home/header', $data);
@@ -149,12 +231,12 @@ class Home extends CI_Controller
 	{
 		$data['title'] = 'Masuk atau Daftar';
 		$data['keranjang'] = $this->cart->contents();
-		
+
 		$this->form_validation->set_rules('nama', 'nama', 'required|regex_match[/^([a-z ])+$/i]', [
 			'required'	=>	'Kolom ini tidak boleh kosong',
 			'regex_match' =>	'Nama harus berupa huruf'
 		]);
-		$this->form_validation->set_rules('telepon', 'telepon','required');
+		$this->form_validation->set_rules('telepon', 'telepon', 'required');
 		$this->form_validation->set_rules('email_reg', 'email_reg', 'required|valid_email|is_unique[customer.email]', [
 			'required'	=>	'Kolom ini tidak boleh kosong',
 			'valid_email' =>	'Email tidal valid',
@@ -182,7 +264,7 @@ class Home extends CI_Controller
 	public function sigin()
 	{
 		$data['title'] = 'Masuk atau Daftar';
-		
+
 		$data['keranjang'] = $this->cart->contents();
 		$this->form_validation->set_rules('email', 'email', 'required', [
 			'required'	=>	'Kolom ini tidak boleh kosong'
@@ -215,7 +297,7 @@ class Home extends CI_Controller
 			redirect('');
 		}
 		$data['title'] = 'Checkout';
-		
+
 		$data['kategori'] = $this->Home_model->all_kategori();
 		$data['keranjang'] = $this->cart->contents();
 		// $this->form_validation->set_rules('prov', 'prov', 'required', [
@@ -256,7 +338,7 @@ class Home extends CI_Controller
 			$this->session->set_userdata($tagihan);
 			$this->Home_model->simpan_transaksi();
 			$this->session->set_flashdata('flash', 'Transaksi berhasil');
-			redirect('method');
+			redirect('transaksi');
 		}
 	}
 
@@ -429,7 +511,7 @@ class Home extends CI_Controller
 			redirect('checkout');
 		}
 		$data['title'] = 'Pilih Metode Pembayaran';
-		
+
 		$data['kategori'] = $this->Home_model->all_kategori();
 		$data['keranjang'] = $this->cart->contents();
 		$this->load->view('tema/home/header', $data);
@@ -443,7 +525,7 @@ class Home extends CI_Controller
 			redirect('');
 		}
 		$data['title'] = 'Produk Kategori ';
-		
+
 		$data['kate'] = $this->uri->segment(2);
 		$data['kategori'] = $this->Home_model->all_kategori();
 		$data['prokategori'] = $this->Home_model->produkbytag($url);
@@ -488,7 +570,7 @@ class Home extends CI_Controller
 			redirect('account');
 		}
 		$data['title'] = 'Masukan kata sandi baru';
-		
+
 		$data['kategori'] = $this->Home_model->all_kategori();
 		$data['keranjang'] = $this->cart->contents();
 		$this->form_validation->set_rules('password1', 'password1', 'required|min_length[5]', [

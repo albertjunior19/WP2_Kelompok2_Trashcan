@@ -8,8 +8,9 @@
 						<div class="slider_content text-left slider-animated-1">
 							<p class="animated">Selamat Datang</p>
 							<h1 class="animated">TRASHCAN</h1>
-							<h4 class="animated">Toko Sampah Untuk Daur Ulang</h4>
-							<a href="<?php echo base_url(); ?>shops" class="btn main_btn animated">Belanja Sekarang</a>
+							<h4 class="animated">#PilahPilih Sampah Untuk mewujudkan Lingkungan Indonesia yang Lestari</h4>
+							<a href="<?php echo base_url('home/trashpicktambah'); ?>" class="btn main_btn animated">Daftar Sekarang!</a>
+							<a href="<?php echo base_url(); ?>kontak"  class="btn main_btn animated">Kontak Kami</a>
 						</div>
 					</div>
 				</div>

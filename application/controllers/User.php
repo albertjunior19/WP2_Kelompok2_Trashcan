@@ -15,7 +15,7 @@ class User extends CI_Controller
 
 	public function buktipembayaran()
 	{
-		
+
 		$config['upload_path'] = './assets_home/img/buktipembayaran/';
 		$config['allowed_types'] = 'jpg|png|jpeg|gif';
 		$config['encrypt_name'] = TRUE;
@@ -33,19 +33,19 @@ class User extends CI_Controller
 				$this->image_lib->resize();
 			}
 			$post_data = array(
-				'transaksi_status'         => 'Sudah Upload Bukti Pembayaran',
+				'transaksi_status'         => 'Menunggu Konfirmasi Admin',
 				'buktipembayaran' => $gambar['file_name']
 			);
 			$this->db->set($post_data);
 			$this->db->where('transaksi_id', $this->input->post('id'));
 			$this->db->update('tb_transaksi');
-			$datanotif = array (
+			$datanotif = array(
 				'notif_id'			=>   $this->input->post('id'),
 				'notif_perihal'		=>   'Bukti Pembayaran Masuk',
 				'notif_dari'		=>   $this->session->userdata('username'),
 				'notif_status'		=>   0,
 			);
-		
+
 			$this->db->insert('tb_notifikasi', $datanotif);
 			$this->session->set_flashdata('Flash', 'Berhasil Upload Bukti Pembayaran');
 			redirect(base_url('user/detail/' . $this->input->post('id')));
@@ -53,13 +53,12 @@ class User extends CI_Controller
 			$this->session->set_flashdata('error', 'Anda belum memilih gambar');
 			redirect(base_url('user/detail/' . $this->input->post('id')));
 		}
-
 	}
 
 	public function index()
 	{
 		$data['title'] = 'Dashboard User';
-		
+
 		$data['keranjang'] = $this->cart->contents();
 		$data['kategori'] = $this->Home_model->all_kategori();
 		$data['transaksi'] = $this->User_model->data_transaksi_limit();
@@ -71,7 +70,7 @@ class User extends CI_Controller
 	public function transaksi()
 	{
 		$data['title'] = 'Riwayat Transaksi Anda';
-		
+
 		$data['keranjang'] = $this->cart->contents();
 		$data['kategori'] = $this->Home_model->all_kategori();
 		$data['transaksi'] = $this->User_model->data_transaksi();
@@ -87,7 +86,7 @@ class User extends CI_Controller
 			redirect('user');
 		}
 		$data['title'] = 'Detail Transaksi';
-		
+
 		$data['keranjang'] = $this->cart->contents();
 		$data['kategori'] = $this->Home_model->all_kategori();
 		$data['dtransaksi'] = $this->User_model->detail_transaksi($id);
@@ -99,7 +98,7 @@ class User extends CI_Controller
 	public function profil()
 	{
 		$data['title'] = 'Profil Anda';
-		
+
 		$data['keranjang'] = $this->cart->contents();
 		$data['kategori'] = $this->Home_model->all_kategori();
 		$data['profilanda'] = $this->db->get_where('customer', ['user_id' => $this->session->userdata('userid')])->row_array();
@@ -107,7 +106,7 @@ class User extends CI_Controller
 			'required'	=>	'Kolom ini tidak boleh kosong',
 			'regex_match' =>	'Nama harus berupa huruf'
 		]);
-		$this->form_validation->set_rules('telepon', 'telepon','required');
+		$this->form_validation->set_rules('telepon', 'telepon', 'required');
 		$this->form_validation->set_rules('email', 'email', 'required|valid_email', [
 			'required'	=>	'Kolom ini tidak boleh kosong',
 			'valid_email' =>	'Email tidak valid'
@@ -128,7 +127,7 @@ class User extends CI_Controller
 	public function ganti_password()
 	{
 		$data['title'] = 'Ganti Password';
-		
+
 		$data['keranjang'] = $this->cart->contents();
 		$data['kategori'] = $this->Home_model->all_kategori();
 		$data['profilanda'] = $this->db->get_where('customer', ['user_id' => $this->session->userdata('userid')])->row_array();

@@ -24,14 +24,19 @@ class Home_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 
-	public function cari_produk($key)
+	public function cari_produk($key, $kategoricari)
 	{
 		$this->db->select('*');
 		$this->db->from('tb_produk');
 		$this->db->join('kategori', 'kategori.id_kategori = tb_produk.id_kategori');
 		$this->db->order_by('produk_id', 'DESC');
-		$this->db->like('nama_produk', $key);
-		$this->db->or_like('harga', $key);
+		if ($key != '') {
+			$this->db->like('nama_produk', $key);
+			$this->db->or_like('harga', $key);
+		}
+		if ($kategoricari != '0') {
+			$this->db->where('kategori.id_kategori', $kategoricari);
+		}
 		return $this->db->get()->result_array();
 	}
 
@@ -57,23 +62,27 @@ class Home_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 
-	public function cari_artikel($s) {
+	public function cari_artikel($s)
+	{
 		$this->db->like('blog_judul', $s);
 		$this->db->or_like('blog_isi', $s);
 		return $this->db->get('tb_blog')->result_array();
 	}
 
-	public function detail_artikel($url) {
+	public function detail_artikel($url)
+	{
 		return $this->db->get_where('tb_blog', ['blog_url' => $url])->row_array();
 	}
 
-	public function data_artikel_for_home() {
+	public function data_artikel_for_home()
+	{
 		$this->db->order_by('blog_tgl', 'DESC');
 		$this->db->limit(3);
 		return $this->db->get('tb_blog')->result_array();
 	}
 
-	public function data_artikel() {
+	public function data_artikel()
+	{
 		$this->db->order_by('blog_tgl', 'DESC');
 		return $this->db->get('tb_blog')->result_array();
 	}
@@ -137,6 +146,13 @@ class Home_model extends CI_Model
 	{
 		$this->db->where('cart_userid', $this->session->userdata('userid'));
 		return $this->db->get('keranjang')->result_array();
+	}
+
+	public function trashpick()
+	{
+		$this->db->order_by('idtrashpick', 'DESC');
+		$this->db->where('iduser', $this->session->userdata('userid'));
+		return $this->db->get('trashpick')->result_array();
 	}
 
 	public function simpan_transaksi()
@@ -218,7 +234,7 @@ class Home_model extends CI_Model
 			'pesan_email'		=>   strtolower($this->input->post('mail')),
 			'pesan_tgl'			=>   date('Y-m-d H:i:s'),
 			'pesan_subjek'		=>   ucwords($this->input->post('subject')),
-			'nohp'		=>   $this->input->post('nohp'),
+			'nohp'				=>   $this->input->post('nohp'),
 			'pesan_isi'			=>   $this->input->post('message'),
 		);
 

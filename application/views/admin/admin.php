@@ -52,8 +52,8 @@
                 <td><span><?php echo $pro['nama']; ?></span></td>
                 <td><span><?php echo $pro['email']; ?></span></td>
                 <td>
-                <a href="<?php echo base_url(); ?>admin/edit_admin/<?php echo $pro['admin_id']; ?>" class="btn-st drk-blu-clr"><i class="fa fa-edit"></i></a>
-                  <a href="<?php echo base_url(); ?>admin/hapus_admin/<?php echo $pro['admin_id']; ?>" class="btn-st rd-clr bdel"><i class="fa fa-trash"></i></a>
+                <a href="<?= base_url(); ?>admin/edit_admin/<?php echo $pro['admin_id']; ?>" class="btn-st drk-blu-clr"><i class="fa fa-edit"></i></a>
+                  <a href="<?= base_url(); ?>admin/hapus_admin/<?php echo $pro['admin_id']; ?>" class="btn-st rd-clr bdel"><i class="fa fa-trash"></i></a>
                 </td>
               </tr>
               <?php $i++; ?>

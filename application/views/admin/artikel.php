@@ -10,6 +10,7 @@
                             <th><em>No</em></th>
                             <th><em>Tanggal</em></th>
                             <th><em>Judul</em></th>
+                            <th><em>Penulis</em></th>
                             <th><em>Isi</em></th>
                             <th><em>Foto</em></th>
                             <th><em>Opsi</em></th>
@@ -22,6 +23,7 @@
                             <td><?php echo $i.'.'; ?></td>
                             <td><span><?php echo date('d-m-Y H:i:s', strtotime($pro['blog_tgl'])); ?></span></td>
                             <td><i><?php echo $pro['blog_judul']; ?></i></td>
+                            <td><i><?php echo $pro['blog_penulis']; ?></i></td>
                             <td><i><?php echo word_limiter($pro['blog_isi'], 5); ?></i></td>
                             <td><i><img src="<?php echo base_url(); ?>assets_home/img/blog/<?php echo $pro['blog_gambar']; ?>" width="40" alt="<?php echo $pro['blog_judul']; ?>"></i></td>
                             <td>

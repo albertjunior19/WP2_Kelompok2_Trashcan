@@ -240,21 +240,35 @@ class Admin extends CI_Controller
 		$this->load->view('tema/admin/footer');
 	}
 
+	public function trashpick()
+	{
+		$data['title'] = 'Data Transaksi Trashpick';
+		$data['notifikasi'] = $this->Admin_model->data_notifikasi();
+		$data['pesanmasuk'] = $this->Admin_model->data_notifikasi_pesan();
+		$data['trashpick'] = $this->Admin_model->trashpick();
+		$this->load->view('tema/admin/header', $data);
+		$this->load->view('admin/trashpick', $data);
+		$this->load->view('tema/admin/footer');
+	}
 
 	public function konfirmasi_transaksi()
 	{
-		$id = $this->uri->segment(3);
-		$this->db->where('transaksi_id', $id);
-		$ambil_nominal = $this->db->get('tb_transaksi')->row()->transaksi_total;
-		// print_r($ambil_data);exit;
-		$this->db->set('transaksi_status', 'diproses');
-		$this->db->where('transaksi_id', $this->uri->segment(3));
-		$this->db->update('tb_transaksi');
-
-
+		// $id = $this->uri->segment(3);
+		// $this->db->where('transaksi_id', $id);
+		// $ambil_nominal = $this->db->get('tb_transaksi')->row()->transaksi_total;
+		// $this->db->set('transaksi_status', 'diproses');
+		// $this->db->where('transaksi_id', $this->uri->segment(3));
+		// $this->db->update('tb_transaksi');
+		// $this->session->set_flashdata('flash', 'Transaksi berhasil dikonfirmasi');
+		// redirect('admin/transaksi');
+		$data = [
+			'transaksi_status' => $this->input->post('transaksi_status'),
+			'noresi' => $this->input->post('noresi'),
+		];
+		$this->db->where('transaksi_id', $this->input->post('idtransaksi'));
+		$this->db->update('tb_transaksi', $data);
 		$this->session->set_flashdata('flash', 'Transaksi berhasil dikonfirmasi');
-
-		redirect('admin/transaksi');
+		redirect('admin/detail_transaksi/' . $this->input->post('idtransaksi'));
 	}
 
 	public function tolak_transaksi()
@@ -528,7 +542,8 @@ class Admin extends CI_Controller
 		redirect('admin/admin');
 	}
 
-	public function artikel() {
+	public function artikel()
+	{
 		$data['title'] = 'Data Artikel Blog';
 		$data['notifikasi'] = $this->Admin_model->data_notifikasi();
 		$data['pesanmasuk'] = $this->Admin_model->data_notifikasi_pesan();
@@ -538,56 +553,70 @@ class Admin extends CI_Controller
 		$this->load->view('tema/admin/footer');
 	}
 
-	public function add_post() {
+	public function add_post()
+	{
 		$data['title'] = 'Buat Postingan Baru';
 		$data['notifikasi'] = $this->Admin_model->data_notifikasi();
 		$data['pesanmasuk'] = $this->Admin_model->data_notifikasi_pesan();
 		$this->form_validation->set_rules('judul', 'judul', 'required|min_length[5]', [
-				'required'	=>	'Kolom ini tidak boleh kosong',
-				'min_length'=>	'Minimal 5 karakter']);
+			'required'	=>	'Kolom ini tidak boleh kosong',
+			'min_length' =>	'Minimal 5 karakter'
+		]);
+		$this->form_validation->set_rules('penulis', 'penulis', 'required|min_length[5]', [
+			'required'	=>	'Kolom ini tidak boleh kosong',
+			'min_length' =>	'Minimal 5 karakter'
+		]);
 		$this->form_validation->set_rules('isi', 'isi', 'required|min_length[5]', [
-					'required'	=>	'Kolom ini tidak boleh kosong',
-					'min_length'=>	'Minimal 5 karakter']);
-		if($this->form_validation->run() == FALSE) {
+			'required'	=>	'Kolom ini tidak boleh kosong',
+			'min_length' =>	'Minimal 5 karakter'
+		]);
+		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('tema/admin/header', $data);
 			$this->load->view('admin/add_post', $data);
 			$this->load->view('tema/admin/footer');
-		}else {
-			
+		} else {
+
 			$this->Admin_model->simpan_artikel();
 			$this->session->set_flashdata('flash', 'Postingan baru berhasil ditambahkan');
 			redirect('admin/artikel');
 		}
 	}
 
-	public function edit_post($id) {
+	public function edit_post($id)
+	{
 		$data['title'] = 'Edit Posting';
 		$data['notifikasi'] = $this->Admin_model->data_notifikasi();
 		$data['pesanmasuk'] = $this->Admin_model->data_notifikasi_pesan();
 		$data['artikelid'] = $this->Admin_model->artikelbyid($id);
 		$this->form_validation->set_rules('judul', 'judul', 'required|min_length[5]', [
-				'required'	=>	'Kolom ini tidak boleh kosong',
-				'min_length'=>	'Minimal 5 karakter']);
+			'required'	=>	'Kolom ini tidak boleh kosong',
+			'min_length' =>	'Minimal 5 karakter'
+		]);
+		$this->form_validation->set_rules('penulis', 'penulis', 'required|min_length[5]', [
+			'required'	=>	'Kolom ini tidak boleh kosong',
+			'min_length' =>	'Minimal 5 karakter'
+		]);
 		$this->form_validation->set_rules('isi', 'isi', 'required|min_length[5]', [
-					'required'	=>	'Kolom ini tidak boleh kosong',
-					'min_length'=>	'Minimal 5 karakter']);
-		if($this->form_validation->run() == FALSE) {
+			'required'	=>	'Kolom ini tidak boleh kosong',
+			'min_length' =>	'Minimal 5 karakter'
+		]);
+		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('tema/admin/header', $data);
 			$this->load->view('admin/edit_post', $data);
 			$this->load->view('tema/admin/footer');
-		}else {
-			
+		} else {
+
 			$this->Admin_model->ubah_artikel();
 			$this->session->set_flashdata('flash', 'Postingan berhasil diperbaharui');
 			redirect('admin/artikel');
 		}
 	}
 
-	public function hapus_post($id) {
-		
+	public function hapus_post($id)
+	{
+
 		$this->Admin_model->del_artikel($id);
 		$this->session->set_flashdata('flash', 'Postingan berhasil dihapus');
 		redirect('admin/artikel');
 	}
-	
 }

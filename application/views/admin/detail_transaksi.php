@@ -74,13 +74,35 @@
   </div>
   <div class="gap no-gap">
     <div class="row">
-      <div class="col-md-6 col-sm-6">
-        <ul class="some-about">
-          <li><span>Pesan dari user:</span><?php echo $trs['transaksi_note']; ?></li>
-        </ul>
+      <div class="col-md-9 col-sm-12">
+        <?php if ($trs['transaksi_status'] != 'Belum Mengupload Bukti Pembayaran') { ?>
+          <form action="<?= base_url('admin/konfirmasi_transaksi') ?>" method="post">
+            <div class="form-group">
+              <label>Status Transaksi</label>
+              <input type="hidden" name="idtransaksi" value="<?= $trs['transaksi_id'] ?>">
+              <select class="form-control" name="transaksi_status">
+                <option <?php if ($trs['transaksi_status'] == 'Sedang Di Kemas') echo 'selected'; ?> value="Sedang Di Kemas">Sedang Di Kemas</option>
+                <option <?php if ($trs['transaksi_status'] == 'Dikirim') echo 'selected'; ?> value="Dikirim">Dikirim</option>
+                <option <?php if ($trs['transaksi_status'] == 'Selesai') echo 'selected'; ?> value="Selesai">Selesai</option>
+                <option <?php if ($trs['transaksi_status'] == 'Di Tolak') echo 'selected'; ?> value="Di Tolak">Di Tolak</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Masukkan Nomor Resi</label>
+              <input type="text" class="form-control" value="<?= $trs['noresi'] ?>" name="noresi">
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary float-right pull-right" type="submit">Simpan</button>
+            </div>
+          </form>
+        <?php } ?>
       </div>
-      <div class="col-md-6 col-sm-6">
-        <div class="proced-btns"> <a class="btn-st " href="<?php echo base_url(); ?>admin/cetak_invoice/<?php echo $trs['transaksi_id']; ?>" title="Cetak">print invoice</a> <button class="btn-st drk-clr" onclick="goBack();" title="Back">Kembali</button> </div>
+      <div class="col-md-3 col-sm-12">
+        <?php if ($trs['transaksi_status'] != 'Belum Mengupload Bukti Pembayaran') { ?>
+          <div class="proced-btns"> <a class="btn-st " href="<?php echo base_url(); ?>admin/cetak_invoice/<?php echo $trs['transaksi_id']; ?>" title="Cetak">print invoice</a>
+          <?php } ?>
+          <button class="btn-st drk-clr" onclick="goBack();" title="Back">Kembali</button>
+          </div>
       </div>
     </div>
   </div>

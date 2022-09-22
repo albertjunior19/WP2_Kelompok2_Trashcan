@@ -54,6 +54,8 @@
                                             </li>
                                             <li><a href="<?php echo base_url(); ?>admin/transaksi"><i class="fa fa-shopping-cart"></i><span>Transaksi</span></a>
                                             </li>
+                                            <li><a href="<?php echo base_url(); ?>admin/trashpick"><i class="fa fa-book"></i><span>Trashpick</a>
+                                            </li>
                                             <li class="nav-item dropdown <?php echo $this->uri->segment(2) == 'subsoal' ?  'active' : '' ?>">
                                             </li>
                                             <li><a href="<?php echo base_url(); ?>admin/member"><i class="fa fa-users"></i><span>Pelanggan</span></a>

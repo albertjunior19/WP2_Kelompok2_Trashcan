@@ -89,6 +89,12 @@ class Admin_model extends CI_Model
 		$this->db->insert('tb_produk', $data);
 	}
 
+	public function trashpick()
+	{
+		$this->db->order_by('idtrashpick', 'DESC');
+		return $this->db->get('trashpick')->result_array();
+	}
+
 	public function ubah_produk()
 	{
 		$judul = ucwords($this->input->post('nama-produk'));
@@ -332,106 +338,115 @@ class Admin_model extends CI_Model
 		return $this->db->get_where('admin', ['admin_id' => $this->session->userdata('adminid')])->row_array();
 	}
 
-	public function data_artikel() {
+	public function data_artikel()
+	{
 		$this->db->order_by('blog_tgl', 'DESC');
 		return $this->db->get('tb_blog')->result_array();
 	}
 
-	public function simpan_artikel() {
+	public function simpan_artikel()
+	{
 		$id = rand();
-	    $judul = ucwords($this->input->post('judul'));
-	    $url = url_title(strtolower($judul), 'dash', TRUE).'-'.time().'.html';
-	    $tgl = date('Y-m-d H:i:s');
-	    $isi = $this->input->post('isi');
-	
-	    // get foto
-	    $config['upload_path'] = './assets_home/img/blog/';
-	    $config['allowed_types'] = 'jpg|png|jpeg|gif';
-	    $config['encrypt_name'] = TRUE;
-	
-	    $this->upload->initialize($config);
-	    if (!empty($_FILES['gambar']['name'])) {
-	        if ( $this->upload->do_upload('gambar') ) {
-	            $gambar = $this->upload->data();
-	            $config['image_library'] = 'gd2';
-	            $config['source_image'] = './assets_home/img/blog/'.$gambar['file_name'];
-	            $config['width']= 800;
-	            $config['height']= 500;
-	            $config['new_image'] = './assets_home/img/blog/'.$gambar['file_name'];
-	            $this->load->library('image_lib', $config);
-	            $this->image_lib->resize();
-	                
-	            $data = array(
-	                    'blog_id'					=>	$id,
-	                    'blog_url'					=>	$url,
-	                    'blog_judul'				=>	$judul,
-	                    'blog_tgl'					=>	$tgl,
-	                    'blog_isi'					=>	$isi,
-						'blog_gambar'				=>	$gambar['file_name']
-	                );
-	           }
-	    }else {
-	    	$this->session->set_flashdata('error', 'Anda belum memilih gambar');
+		$judul = ucwords($this->input->post('judul'));
+		$penulis = $this->input->post('penulis');
+		$url = url_title(strtolower($judul), 'dash', TRUE) . '-' . time() . '.html';
+		$tgl = date('Y-m-d H:i:s');
+		$isi = $this->input->post('isi');
+
+		// get foto
+		$config['upload_path'] = './assets_home/img/blog/';
+		$config['allowed_types'] = 'jpg|png|jpeg|gif';
+		$config['encrypt_name'] = TRUE;
+
+		$this->upload->initialize($config);
+		if (!empty($_FILES['gambar']['name'])) {
+			if ($this->upload->do_upload('gambar')) {
+				$gambar = $this->upload->data();
+				$config['image_library'] = 'gd2';
+				$config['source_image'] = './assets_home/img/blog/' . $gambar['file_name'];
+				$config['width'] = 800;
+				$config['height'] = 500;
+				$config['new_image'] = './assets_home/img/blog/' . $gambar['file_name'];
+				$this->load->library('image_lib', $config);
+				$this->image_lib->resize();
+
+				$data = array(
+					'blog_id'					=>	$id,
+					'blog_url'					=>	$url,
+					'blog_judul'				=>	$judul,
+					'blog_tgl'					=>	$tgl,
+					'blog_isi'					=>	$isi,
+					'blog_penulis'				=>  $penulis,
+					'blog_gambar'				=>	$gambar['file_name']
+				);
+			}
+		} else {
+			$this->session->set_flashdata('error', 'Anda belum memilih gambar');
 			redirect('admin/add_post');
-	    }
-	
+		}
+
 		$this->db->insert('tb_blog', $data);
 	}
-	
-	public function ubah_artikel() {
-		$id = $this->input->post('id');
-	    $judul = ucwords($this->input->post('judul'));
-		$url = url_title(strtolower($judul), 'dash', TRUE).'-'.time().'.html';
-	    $tgl = date('Y-m-d H:i:s');
-	    $isi = $this->input->post('isi');
 
-	    $config['upload_path'] = './assets_home/img/blog/';
-	    $config['allowed_types'] = 'jpg|png|jpeg|gif';
-	    $config['encrypt_name'] = TRUE;
-	
-	    $this->upload->initialize($config);
-	    if (!empty($_FILES['gambar']['name'])) {
-	        if ( $this->upload->do_upload('gambar') ) {
-	            $gambar = $this->upload->data();
-	            $config['image_library'] = 'gd2';
-	            $config['source_image'] = './assets_home/img/blog/'.$gambar['file_name'];
-	            $config['width']= 800;
-	            $config['height']= 500;
-	            $config['new_image'] = './assets_home/img/blog/'.$gambar['file_name'];
-	            $this->load->library('image_lib', $config);
-	            $this->image_lib->resize();
-	                
-	            $data = array(
-	                    'blog_id'					=>	$id,
-	                    'blog_url'					=>	$url,
-	                    'blog_judul'				=>	$judul,
-	                    'blog_tgl'					=>	$tgl,
-	                    'blog_isi'					=>	$isi,
-						'blog_gambar'				=>	$gambar['file_name']
-	                );
-	           }
-	    }else {
-	    	$data = array(
-                'blog_id'					=>	$id,
-                'blog_url'					=>	$url,
-                'blog_judul'				=>	$judul,
-                'blog_tgl'					=>	$tgl,
-                'blog_isi'					=>	$isi,
+	public function ubah_artikel()
+	{
+		$id = $this->input->post('id');
+		$judul = ucwords($this->input->post('judul'));
+		$penulis = $this->input->post('penulis');
+		$url = url_title(strtolower($judul), 'dash', TRUE) . '-' . time() . '.html';
+		$tgl = date('Y-m-d H:i:s');
+		$isi = $this->input->post('isi');
+
+		$config['upload_path'] = './assets_home/img/blog/';
+		$config['allowed_types'] = 'jpg|png|jpeg|gif';
+		$config['encrypt_name'] = TRUE;
+
+		$this->upload->initialize($config);
+		if (!empty($_FILES['gambar']['name'])) {
+			if ($this->upload->do_upload('gambar')) {
+				$gambar = $this->upload->data();
+				$config['image_library'] = 'gd2';
+				$config['source_image'] = './assets_home/img/blog/' . $gambar['file_name'];
+				$config['width'] = 800;
+				$config['height'] = 500;
+				$config['new_image'] = './assets_home/img/blog/' . $gambar['file_name'];
+				$this->load->library('image_lib', $config);
+				$this->image_lib->resize();
+
+				$data = array(
+					'blog_id'					=>	$id,
+					'blog_url'					=>	$url,
+					'blog_judul'				=>	$judul,
+					'blog_tgl'					=>	$tgl,
+					'blog_isi'					=>	$isi,
+					'blog_penulis'				=>  $penulis,
+					'blog_gambar'				=>	$gambar['file_name']
+				);
+			}
+		} else {
+			$data = array(
+				'blog_id'					=>	$id,
+				'blog_url'					=>	$url,
+				'blog_judul'				=>	$judul,
+				'blog_tgl'					=>	$tgl,
+				'blog_isi'					=>	$isi,
+				'blog_penulis'				=>  $penulis,
 				'blog_gambar'				=>	$this->input->post('gambar_old')
-	        );
-	    }
-	
+			);
+		}
+
 		$this->db->where('blog_id', $this->input->post('id'));
 		$this->db->update('tb_blog', $data);
 	}
 
-	public function artikelbyid($id) {
+	public function artikelbyid($id)
+	{
 		return $this->db->get_where('tb_blog', ['blog_id' => $id])->row_array();
 	}
 
-	public function del_artikel($id) {
+	public function del_artikel($id)
+	{
 		$this->db->where('blog_id', $id);
 		$this->db->delete('tb_blog');
 	}
-
 }

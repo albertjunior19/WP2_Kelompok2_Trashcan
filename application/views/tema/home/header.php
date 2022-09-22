@@ -65,7 +65,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-3">
-						<img width="75px" src="<?= base_url('assets_home/logo.png') ?>">
+						<img width="75x" src="<?= base_url('assets_home/logo.png') ?>">
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-9 text-right">
 						<div class="menu_wrap">
@@ -74,15 +74,15 @@
 									<ul>
 										<li><a href="<?php echo base_url(); ?>">Home</a>
 										</li>
-										<li><a href="<?php echo base_url(); ?>shops">Produk</a></li>
-										<li><a href="#">Kategori <i class="fa fa-angle-down"></i></a>
-											<!-- Sub Menu -->
+										<li><a href="<?php echo base_url(); ?>shops">TrashMarket</a></li>
+										<li><a href="<?php echo base_url('home/trashpicktambah'); ?>">Trashpick</a></li>
+										<!-- <li><a href="#">Kategori <i class="fa fa-angle-down"></i></a>
 											<ul class="sub-menu">
 												<?php foreach ($kategori as $tag) : ?>
 													<li><a href="<?php echo base_url(); ?>kategori/<?php echo $tag['url'] ?>"><?php echo $tag['kategori'] ?></a></li>
 												<?php endforeach; ?>
 											</ul>
-										</li>
+										</li> -->
 										<li><a href="<?php echo base_url(); ?>blog">Trashblog</a></li>
 										<?php if ($this->session->userdata('loginstatus') != '6484bbvnvfdswuieywor3443993') { ?>
 											<li><a href="#">Akun</a>
@@ -96,6 +96,7 @@
 												<ul class="sub-menu">
 													<li><a href="<?php echo base_url(); ?>user">Dashboard</a></li>
 													<li><a href="<?php echo base_url(); ?>user/transaksi">Riwayat Transaksi</a></li>
+													<li><a href="<?php echo base_url(); ?>home/trashpickriwayat">Riwayat Trashpick</a></li>
 													<li><a href="<?php echo base_url(); ?>user/profil">Profil</a></li>
 													<li><a href="<?php echo base_url(); ?>user/ganti_password">Ganti Sandi</a></li>
 													<li><a href="<?php echo base_url(); ?>logout">Keluar</a></li>
@@ -111,14 +112,14 @@
 									<ul>
 										<li><a href="<?php echo base_url(); ?>">Home</a></li>
 										<li><a href="<?php echo base_url(); ?>shops">Produk</a></li>
-										<li><a href="#">Kategori</a>
-											<!-- Sub Menu -->
+										<li><a href="<?php echo base_url(); ?>shops">Produk</a></li>
+										<!-- <li><a href="#">Kategori</a>
 											<ul>
 												<?php foreach ($kategori as $tag) : ?>
 													<li><a href="<?php echo $tag['url'] ?>"><?php echo $tag['kategori'] ?></a></li>
 												<?php endforeach; ?>
 											</ul>
-										</li>
+										</li> -->
 										<li><a href="<?php echo base_url(); ?>blog">Trashblog</a></li>
 									</ul>
 								</nav>

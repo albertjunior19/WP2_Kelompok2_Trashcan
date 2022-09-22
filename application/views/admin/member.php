@@ -40,6 +40,7 @@
               <th><em>Nama</em></th>
               <th><em>No HP</em></th>
               <th><em>Email</em></th>
+              <th><em>Foto</em>
               <th><em>Tgl Registrasi</em></th>
               <th><em>Opsi</em></th>
             </tr>
@@ -52,9 +53,16 @@
                 <td><span><?php echo $pro['nama_lengkap']; ?></span></td>
                 <td><span><?php echo $pro['telepon']; ?></span></td>
                 <td><i><?php echo $pro['email']; ?></i></td>
+                <td>
+                  <?php if ($pro['fotoprofil'] != "") { ?>
+                    <img width="150px" src="<?= base_url('upload/fotoprofil/' . $pro['fotoprofil']) ?>">
+                  <?php } else { ?>
+                    <img width="150px" src="<?= base_url('upload/fotoprofil/user.png') ?>">
+                  <?php } ?>
+                </td>
                 <td><i><?php echo date('d-m-Y H:i:s', strtotime($pro['user_created'])); ?></i></td>
                 <td>
-                <a href="<?php echo base_url(); ?>admin/edit_pelanggan/<?php echo $pro['user_id']; ?>" class="btn-st drk-blu-clr"><i class="fa fa-edit"></i></a>
+                  <a href="<?php echo base_url(); ?>admin/edit_pelanggan/<?php echo $pro['user_id']; ?>" class="btn-st drk-blu-clr"><i class="fa fa-edit"></i></a>
                   <a href="<?php echo base_url(); ?>admin/hapus_pelanggan/<?php echo $pro['user_id']; ?>" class="btn-st rd-clr bdel"><i class="fa fa-trash"></i></a>
                 </td>
               </tr>

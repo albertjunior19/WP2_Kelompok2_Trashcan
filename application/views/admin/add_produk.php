@@ -39,10 +39,12 @@
               <label>Nama Mitra</label><br>
               <input type="text" name="namamitra" value="<?php echo set_value('namamitra'); ?>" placeholder="">
             </div>
-            <div class="col-md-12"> <span class="upload-image">Upload gambar</span>
-              <label class="fileContainer"> <span>upload</span>
-                <input type="file" name="gambar" />
-              </label>
+            <div class="col-md-6">
+              <div class="form-group">
+								<label>gambar</label>
+								<input type="file" name="gambar" class="form-control">
+								<small class="text-danger"><?php echo form_error('gambar'); ?></small>
+							</div>
             </div>
             <div class="col-md-12">
               <div class="buttonz">
@@ -55,3 +57,4 @@
       </form>
     </div>
   </div>
+ 

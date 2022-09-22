@@ -13,6 +13,11 @@
             <input type="text" name="judul" value="<?php echo $artikelid['blog_judul']; ?>" placeholder="Harga produk naik">
             <small class="text-danger"><?php echo form_error('judul'); ?></small>
           </div>
+           <div class="col-md-12">
+            <label>Penulis</label>
+            <input type="text" name="penulis" value="<?php echo $artikelid['blog_penulis']; ?>" placeholder="Harga produk naik">
+            <small class="text-danger"><?php echo form_error('judul'); ?></small>
+          </div>
           <div class="col-md-12">
             <label>Isi Artikel</label>
             <textarea cols="30" name="isi" rows="10" placeholder="loram ipsum dolor sit amit"><?php echo $artikelid['blog_isi']; ?></textarea>

@@ -10,7 +10,7 @@
 				<ul class="p_items">
 					<li><a href="<?php echo base_url(); ?>">home</a></li>
 					<li><a href="<?php echo base_url(); ?>blog">artikel</a></li>
-					<li><span><?php echo $detailblog['blog_judul']; ?></span></li>
+					
 				</ul>
 			</div>
 		</div>
@@ -34,7 +34,7 @@
 
 					<div class="blog_content ">
 						<ul class="post-bar">
-							<li><i class="fa fa-user"></i> Admin</li>
+							<li>Oleh  <i class="fa fa-user">  Penulis : <?php echo $detailblog['blog_penulis']; ?></i></li>
 							<!-- <li><i class="fa fa-comments-o"></i> <a href="#">2 comments</a></li>
 										<li><i class="fa fa-heart-o"></i> <a href="#">4 like</a></li> -->
 						</ul>

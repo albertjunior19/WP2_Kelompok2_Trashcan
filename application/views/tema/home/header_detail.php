@@ -74,7 +74,8 @@
 									<ul class="csub-menu">
 										<li><a href="<?php echo base_url(); ?>user">Dashboard</a></li>
 
-										<li><a href="<?php echo base_url(); ?>user/transaksi">Transaksi</a></li>
+										<li><a href="<?php echo base_url(); ?>user/transaksi">Riwayat Transaksi</a></li>
+										<li><a href="<?php echo base_url(); ?>home/trashpickriwayat">Riwayat Trashpick</a></li>
 										<li><a href="<?php echo base_url(); ?>user/profil">Profil</a></li>
 										<li><a href="<?php echo base_url(); ?>user/ganti_password">Ganti Sandi</a></li>
 										<li><a href="<?php echo base_url(); ?>logout">Keluar</a></li>
@@ -98,18 +99,17 @@
 							<div class="main-menu">
 								<nav>
 									<ul>
-										<li><a href="<?php echo base_url(); ?>">home</a>
+										<li><a href="<?php echo base_url(); ?>">Home</a>
 										</li>
-										<li><a href="<?php echo base_url(); ?>shops">Produk</a></li>
-										<li><a href="#">Kategori <i class="fa fa-angle-down"></i></a>
-											<!-- Sub Menu -->
+										<li><a href="<?php echo base_url(); ?>shops">TrashMarket</a></li>
+										<li><a href="<?php echo base_url('home/trashpicktambah'); ?>">Trashpick</a></li>
+										<!-- <li><a href="#">Kategori <i class="fa fa-angle-down"></i></a>
 											<ul class="sub-menu">
 												<?php foreach ($kategori as $tag) : ?>
 													<li><a href="<?php echo base_url(); ?>kategori/<?php echo $tag['url'] ?>"><?php echo $tag['kategori'] ?></a></li>
 												<?php endforeach; ?>
 											</ul>
-										</li>
-										<li><a href="<?php echo base_url(); ?>kontak">Kontak</a></li>
+										</li> -->
 									</ul>
 								</nav>
 							</div> <!--  End Main Menu -->
@@ -117,16 +117,16 @@
 							<div class="mobile-menu text-right ">
 								<nav>
 									<ul>
-										<li><a href="<?php echo base_url(); ?>">home</a></li>
+										<li><a href="<?php echo base_url(); ?>">Home</a></li>
 										<li><a href="<?php echo base_url(); ?>shops">Produk</a></li>
-										<li><a href="#">Kategori</a>
-											<!-- Sub Menu -->
+										<li><a href="<?php echo base_url(); ?>trashpicktambah">Transpick</a></li>
+										<!-- <li><a href="#">Kategori</a>
 											<ul>
 												<?php foreach ($kategori as $tag) : ?>
 													<li><a href="<?php echo $tag['url'] ?>"><?php echo $tag['kategori'] ?></a></li>
 												<?php endforeach; ?>
 											</ul>
-										</li>
+										</li> -->
 										<li><a href="<?php echo base_url(); ?>kontak">Kontak</a></li>
 									</ul>
 								</nav>

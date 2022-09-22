@@ -74,18 +74,19 @@
 									<ul>
 										<li><a href="<?php echo base_url(); ?>">Home</a>
 										</li>
-										<li><a href="<?php echo base_url(); ?>shops">Produk</a></li>
-										<li><a href="#">Kategori <i class="fa fa-angle-down"></i></a>
-											<!-- Sub Menu -->
+
+										<li><a href="<?php echo base_url(); ?>shops">TrashMarket</a></li>
+										<li><a href="<?php echo base_url('home/trashpicktambah'); ?>">Trashpick</a></li>
+										<!-- <li><a href="#">Kategori <i class="fa fa-angle-down"></i></a>
 											<ul class="sub-menu">
 												<?php foreach ($kategori as $tag) : ?>
 													<li><a href="<?php echo base_url(); ?>kategori/<?php echo $tag['url'] ?>"><?php echo $tag['kategori'] ?></a></li>
 												<?php endforeach; ?>
 											</ul>
-										</li>
+										</li> -->
 										<li><a href="<?php echo base_url(); ?>blog">Trashblog</a></li>
 										<?php if ($this->session->userdata('loginstatus') != '6484bbvnvfdswuieywor3443993') { ?>
-											<li><a href="#">Akun</a>
+											<li><a href="#">Akun</a> 
 												<ul class="sub-menu">
 													<li><a href="<?php echo base_url(); ?>account">Login Pelanggan</a></li>
 													<li><a href="<?php echo base_url('admin'); ?>">Login Admin</a></li>
@@ -96,6 +97,7 @@
 												<ul class="sub-menu">
 													<li><a href="<?php echo base_url(); ?>user">Dashboard</a></li>
 													<li><a href="<?php echo base_url(); ?>user/transaksi">Riwayat Transaksi</a></li>
+													<li><a href="<?php echo base_url(); ?>home/trashpickriwayat">Riwayat Trashpick</a></li>
 													<li><a href="<?php echo base_url(); ?>user/profil">Profil</a></li>
 													<li><a href="<?php echo base_url(); ?>user/ganti_password">Ganti Sandi</a></li>
 													<li><a href="<?php echo base_url(); ?>logout">Keluar</a></li>
@@ -111,77 +113,77 @@
 									<ul>
 										<li><a href="<?php echo base_url(); ?>">Home</a></li>
 										<li><a href="<?php echo base_url(); ?>shops">Produk</a></li>
-										<li><a href="#">Kategori</a>
-											<!-- Sub Menu -->
+										<li><a href="<?php echo base_url(); ?>trashpicktambah">Transpick</a></li>
+										<!-- <li><a href="#">Kategori</a>
 											<ul>
 												<?php foreach ($kategori as $tag) : ?>
 													<li><a href="<?php echo $tag['url'] ?>"><?php echo $tag['kategori'] ?></a></li>
 												<?php endforeach; ?>
 											</ul>
-										</li>
+										</li> -->
 										<li><a href="<?php echo base_url(); ?>blog">Trashblog</a></li>
 									</ul>
 								</nav>
 							</div> <!--  End mobile-menu -->
-								
-								<div class="right_menu">
-									<ul class="nav justify-content-end">
-										<li>
-											<div class="search_icon">
-												<i class="fa fa-search search_btn" aria-hidden="true"></i>
-												<div class="search-box">
-													<form action="<?php echo base_url(); ?>cari" method="post">
-														<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
-														<div class="input-group">
-															<input type="text" name="key" class="form-control"  placeholder="enter keyword"/>				
-															<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>			
-														</div>
-													</form>
-												</div>
+
+							<div class="right_menu">
+								<ul class="nav justify-content-end">
+									<li>
+										<div class="search_icon">
+											<i class="fa fa-search search_btn" aria-hidden="true"></i>
+											<div class="search-box">
+												<form action="<?php echo base_url(); ?>cari" method="post">
+													<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
+													<div class="input-group">
+														<input type="text" name="key" class="form-control" placeholder="enter keyword" />
+														<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+													</div>
+												</form>
 											</div>
-										</li>
-										
-										<li>
-											<div class="cart_menu_area">
-												<div class="cart_icon">
-													<a href="#"><i class="fa fa-shopping-bag " aria-hidden="true"></i></a>
-													<span class="cart_number"><?php echo count($keranjang); ?></span>
-												</div>
-												
-												
-												<!-- Mini Cart Wrapper -->
-												<div class="mini-cart-wrapper">
-													<!-- Product List -->
-													<div class="mc-pro-list fix">
-														<?php foreach($keranjang as $cart): ?>
+										</div>
+									</li>
+
+									<li>
+										<div class="cart_menu_area">
+											<div class="cart_icon">
+												<a href="#"><i class="fa fa-shopping-bag " aria-hidden="true"></i></a>
+												<span class="cart_number"><?php echo count($keranjang); ?></span>
+											</div>
+
+
+											<!-- Mini Cart Wrapper -->
+											<div class="mini-cart-wrapper">
+												<!-- Product List -->
+												<div class="mc-pro-list fix">
+													<?php foreach ($keranjang as $cart) : ?>
 														<div class="mc-sin-pro fix">
 															<a href="#" class="mc-pro-image float-left"><img src="<?php echo base_url(); ?>assets_home/img/product/<?php echo $cart['image']; ?>" alt="<?php echo $cart['name']; ?>" width="49" height="64" /></a>
 															<div class="mc-pro-details fix">
 																<a href="#"><?php echo $cart['name']; ?></a>
-																<span><?php echo $cart['qty']; ?>x<?php echo number_format($cart['price'],0,',','.'); ?></span>
+																<span><?php echo $cart['qty']; ?>x<?php echo number_format($cart['price'], 0, ',', '.'); ?></span>
 																<a class="pro-del" href="<?php echo base_url(); ?>cart/delete/<?php echo $cart['rowid']; ?>"><i class="fa fa-times-circle"></i></a>
 															</div>
 														</div>
-														<?php endforeach; ?>
-													</div>
-													<!-- Sub Total -->
-													<div class="mc-subtotal fix">
-														<h4>Subtotal <span><?php echo number_format($this->cart->total(),0,',','.'); ?></span></h4>												
-													</div>
-													<!-- Cart Button -->
-													<div class="mc-button">
-														<a href="<?php echo base_url(); ?>checkout" class="checkout_btn">checkout</a>
-													</div>
-												</div>											
-											</div>	
-											
-										</li>
-									</ul>
-								</div>							
+													<?php endforeach; ?>
+												</div>
+												<!-- Sub Total -->
+												<div class="mc-subtotal fix">
+													<h4>Subtotal <span><?php echo number_format($this->cart->total(), 0, ',', '.'); ?></span></h4>
+												</div>
+												<!-- Cart Button -->
+												<div class="mc-button">
+													<a href="<?php echo base_url(); ?>checkout" class="checkout_btn">checkout</a>
+												</div>
+											</div>
+										</div>
+
+									</li>
+								</ul>
 							</div>
-						</div><!--  End Col -->										
-					</div>
+						</div>
+					</div><!--  End Col -->
 				</div>
 			</div>
-		</header>
-		<!--  End Header  -->
+		</div>
+	</header>
+	<!--  End Header  -->
