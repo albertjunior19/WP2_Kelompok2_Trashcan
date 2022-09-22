@@ -14,7 +14,11 @@
 				<h3>ALAMAT</h3>
 				<br>
 				<hr><br>
+<<<<<<< HEAD
 				<p>Jl Karet Pasar Baru Barat II No.14 RT 05 RW 05 Karet Tengsin Tanah Abang Jakarta Pusat</p>
+=======
+				<p>Jalan Karet Pasar Baru Barat II No 22 RT 06 RW 05 Karet Tengsin, Tanah Abang, Jakarta Pusat</p>
+>>>>>>> 63083417638d82d2ae818a90e7b6b6420def284d
 			</div>
 
 		</div>
